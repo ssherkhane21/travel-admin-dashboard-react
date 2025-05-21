@@ -10,7 +10,13 @@ import {
   ChevronDown,
   LogOut,
   Menu,
-  X
+  X,
+  Users,
+  User,
+  Percent,
+  Ticket,
+  Wallet,
+  Bell
 } from 'lucide-react';
 
 const MenuItem = ({ icon: Icon, title, to, isActive, hasSubmenu, isOpen, onClick, children }) => {
@@ -98,6 +104,40 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         { title: 'Bike Riders', path: '/bike/riders' },
         { title: 'Bike Bookings', path: '/bike/bookings' }
       ]
+    },
+    {
+      title: 'Customer Management',
+      icon: Users,
+      path: '/customers',
+    },
+    {
+      title: 'User Management',
+      icon: User,
+      path: '/users',
+    },
+    {
+      title: 'Commission Management',
+      icon: Percent,
+      path: '/commission',
+    },
+    {
+      title: 'Coupons',
+      icon: Ticket,
+      path: '/coupons',
+    },
+    {
+      title: 'Wallet',
+      icon: Wallet,
+      path: '/wallet',
+      submenu: [
+        { title: 'Transactions', path: '/wallet/transactions' },
+        { title: 'Settings', path: '/wallet/settings' }
+      ]
+    },
+    {
+      title: 'Notifications',
+      icon: Bell,
+      path: '/notifications',
     }
   ];
 
