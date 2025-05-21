@@ -12,18 +12,31 @@ import {
   TableRow, 
   TableCell 
 } from '../../components/ui/table';
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { toast } from '@/hooks/use-toast';
 
 const UsersList = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   
   // Mock user data
-  const users = [
+  const [users, setUsers] = useState([
     { id: 1, name: 'Admin User', email: 'admin@example.com', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Manager One', email: 'manager1@example.com', role: 'Manager', status: 'Active' },
     { id: 3, name: 'Subadmin User', email: 'subadmin@example.com', role: 'Subadmin', status: 'Active' },
     { id: 4, name: 'Manager Two', email: 'manager2@example.com', role: 'Manager', status: 'Inactive' },
-  ];
+  ]);
 
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -33,6 +46,30 @@ const UsersList = () => {
 
   const handleCreateUser = () => {
     navigate('/users/create');
+  };
+
+  const handleEditUser = (userId) => {
+    console.log('Edit user', userId);
+    navigate(`/users/edit/${userId}`);
+  };
+
+  const handleDeleteUser = (userId) => {
+    console.log('Delete user', userId);
+    // Filter out the deleted user
+    setUsers(users.filter(user => user.id !== userId));
+    // Show success toast
+    toast({
+      title: "User deleted",
+      description: "User has been deleted successfully.",
+      variant: "default",
+    });
+    // Close the dialog
+    setDeleteDialogOpen(false);
+  };
+
+  const openDeleteDialog = (user) => {
+    setUserToDelete(user);
+    setDeleteDialogOpen(true);
   };
 
   return (
@@ -101,13 +138,13 @@ const UsersList = () => {
                   <div className="flex space-x-2">
                     <button 
                       className="p-1.5 bg-blue-50 rounded-md text-blue-600 hover:bg-blue-100"
-                      onClick={() => console.log('Edit user', user.id)}
+                      onClick={() => handleEditUser(user.id)}
                     >
                       <Edit size={16} />
                     </button>
                     <button 
                       className="p-1.5 bg-red-50 rounded-md text-red-600 hover:bg-red-100"
-                      onClick={() => console.log('Delete user', user.id)}
+                      onClick={() => openDeleteDialog(user)}
                     >
                       <Trash size={16} />
                     </button>
@@ -118,6 +155,26 @@ const UsersList = () => {
           </TableBody>
         </Table>
       </div>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the user {userToDelete?.name}. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={() => handleDeleteUser(userToDelete?.id)}
+              className="bg-red-600 text-white hover:bg-red-700"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

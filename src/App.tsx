@@ -15,21 +15,25 @@ import BusOperators from "./pages/bus/BusOperators";
 import BusOperatorDetails from "./pages/bus/BusOperatorDetails";
 import BusOperatorBuses from "./pages/bus/BusOperatorBuses";
 import BusBookings from "./pages/bus/BusBookings";
+import BusBookingDetails from "./pages/bus/BusBookingDetails";
 
 // Hotel Management
 import HotelManagers from "./pages/hotel/HotelManagers";
 import HotelManagerDetails from "./pages/hotel/HotelManagerDetails";
 import HotelBookings from "./pages/hotel/HotelBookings";
+import HotelBookingDetails from "./pages/hotel/HotelBookingDetails";
 
 // Taxi Management
 import TaxiDrivers from "./pages/taxi/TaxiDrivers";
 import TaxiDriverDetails from "./pages/taxi/TaxiDriverDetails";
 import TaxiBookings from "./pages/taxi/TaxiBookings";
+import TaxiBookingDetails from "./pages/taxi/TaxiBookingDetails";
 
 // Bike Management
 import BikeRiders from "./pages/bike/BikeRiders";
 import BikeRiderDetails from "./pages/bike/BikeRiderDetails";
 import BikeBookings from "./pages/bike/BikeBookings";
+import BikeBookingDetails from "./pages/bike/BikeBookingDetails";
 
 // Customer Management
 import CustomersList from "./pages/customers/CustomersList";
@@ -39,6 +43,7 @@ import CustomerHistory from "./pages/customers/CustomerHistory";
 // User Management
 import UsersList from "./pages/users/UsersList";
 import CreateUser from "./pages/users/CreateUser";
+import UserEdit from "./pages/users/UserEdit";
 
 // Commission Management
 import CommissionSettings from "./pages/commission/CommissionSettings";
@@ -46,6 +51,7 @@ import CommissionSettings from "./pages/commission/CommissionSettings";
 // Coupons Management
 import CouponsList from "./pages/coupons/CouponsList";
 import CreateCoupon from "./pages/coupons/CreateCoupon";
+import CouponEdit from "./pages/coupons/CouponEdit";
 
 // Wallet Management
 import WalletTransactions from "./pages/wallet/WalletTransactions";
@@ -71,21 +77,25 @@ const App = () => (
           <Route path="/bus/operators/:id" element={<Layout><BusOperatorDetails /></Layout>} />
           <Route path="/bus/operators/:id/buses" element={<Layout><BusOperatorBuses /></Layout>} />
           <Route path="/bus/bookings" element={<Layout><BusBookings /></Layout>} />
+          <Route path="/bus/bookings/:id" element={<Layout><BusBookingDetails /></Layout>} />
           
           {/* Hotel Management Routes */}
           <Route path="/hotel/managers" element={<Layout><HotelManagers /></Layout>} />
           <Route path="/hotel/managers/:id" element={<Layout><HotelManagerDetails /></Layout>} />
           <Route path="/hotel/bookings" element={<Layout><HotelBookings /></Layout>} />
+          <Route path="/hotel/bookings/:id" element={<Layout><HotelBookingDetails /></Layout>} />
           
           {/* Taxi Management Routes */}
           <Route path="/taxi/drivers" element={<Layout><TaxiDrivers /></Layout>} />
           <Route path="/taxi/drivers/:id" element={<Layout><TaxiDriverDetails /></Layout>} />
           <Route path="/taxi/bookings" element={<Layout><TaxiBookings /></Layout>} />
+          <Route path="/taxi/bookings/:id" element={<Layout><TaxiBookingDetails /></Layout>} />
           
           {/* Bike Management Routes */}
           <Route path="/bike/riders" element={<Layout><BikeRiders /></Layout>} />
           <Route path="/bike/riders/:id" element={<Layout><BikeRiderDetails /></Layout>} />
           <Route path="/bike/bookings" element={<Layout><BikeBookings /></Layout>} />
+          <Route path="/bike/bookings/:id" element={<Layout><BikeBookingDetails /></Layout>} />
           
           {/* Customer Management Routes */}
           <Route path="/customers" element={<Layout><CustomersList /></Layout>} />
@@ -95,6 +105,7 @@ const App = () => (
           {/* User Management Routes */}
           <Route path="/users" element={<Layout><UsersList /></Layout>} />
           <Route path="/users/create" element={<Layout><CreateUser /></Layout>} />
+          <Route path="/users/edit/:id" element={<Layout><UserEdit /></Layout>} />
           
           {/* Commission Management Routes */}
           <Route path="/commission" element={<Layout><CommissionSettings /></Layout>} />
@@ -102,6 +113,7 @@ const App = () => (
           {/* Coupons Management Routes */}
           <Route path="/coupons" element={<Layout><CouponsList /></Layout>} />
           <Route path="/coupons/create" element={<Layout><CreateCoupon /></Layout>} />
+          <Route path="/coupons/edit/:id" element={<Layout><CouponEdit /></Layout>} />
           
           {/* Wallet Management Routes */}
           <Route path="/wallet/transactions" element={<Layout><WalletTransactions /></Layout>} />

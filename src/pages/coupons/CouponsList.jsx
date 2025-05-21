@@ -12,13 +12,26 @@ import {
   TableRow, 
   TableCell 
 } from '../../components/ui/table';
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { toast } from '@/hooks/use-toast';
 
 const CouponsList = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [couponToDelete, setCouponToDelete] = useState(null);
   
   // Mock coupons data
-  const coupons = [
+  const [coupons, setCoupons] = useState([
     { 
       id: 1, 
       name: 'SUMMER2023', 
@@ -59,7 +72,7 @@ const CouponsList = () => {
       expiry: '2023-05-31',
       status: 'Expired' 
     },
-  ];
+  ]);
 
   const filteredCoupons = coupons.filter(coupon => 
     coupon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -69,6 +82,30 @@ const CouponsList = () => {
 
   const handleCreateCoupon = () => {
     navigate('/coupons/create');
+  };
+
+  const handleEditCoupon = (couponId) => {
+    console.log('Edit coupon', couponId);
+    navigate(`/coupons/edit/${couponId}`);
+  };
+
+  const handleDeleteCoupon = (couponId) => {
+    console.log('Delete coupon', couponId);
+    // Filter out the deleted coupon
+    setCoupons(coupons.filter(coupon => coupon.id !== couponId));
+    // Show success toast
+    toast({
+      title: "Coupon deleted",
+      description: "Coupon has been deleted successfully.",
+      variant: "default",
+    });
+    // Close the dialog
+    setDeleteDialogOpen(false);
+  };
+
+  const openDeleteDialog = (coupon) => {
+    setCouponToDelete(coupon);
+    setDeleteDialogOpen(true);
   };
 
   return (
@@ -131,13 +168,13 @@ const CouponsList = () => {
                   <div className="flex space-x-2">
                     <button 
                       className="p-1.5 bg-blue-50 rounded-md text-blue-600 hover:bg-blue-100"
-                      onClick={() => console.log('Edit coupon', coupon.id)}
+                      onClick={() => handleEditCoupon(coupon.id)}
                     >
                       <Edit size={16} />
                     </button>
                     <button 
                       className="p-1.5 bg-red-50 rounded-md text-red-600 hover:bg-red-100"
-                      onClick={() => console.log('Delete coupon', coupon.id)}
+                      onClick={() => openDeleteDialog(coupon)}
                     >
                       <Trash size={16} />
                     </button>
@@ -148,6 +185,26 @@ const CouponsList = () => {
           </TableBody>
         </Table>
       </div>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the coupon {couponToDelete?.name} ({couponToDelete?.code}). This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={() => handleDeleteCoupon(couponToDelete?.id)}
+              className="bg-red-600 text-white hover:bg-red-700"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
