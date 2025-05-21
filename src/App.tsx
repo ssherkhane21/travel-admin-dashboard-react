@@ -31,6 +31,30 @@ import BikeRiders from "./pages/bike/BikeRiders";
 import BikeRiderDetails from "./pages/bike/BikeRiderDetails";
 import BikeBookings from "./pages/bike/BikeBookings";
 
+// Customer Management
+import CustomersList from "./pages/customers/CustomersList";
+import CustomerDetails from "./pages/customers/CustomerDetails";
+import CustomerHistory from "./pages/customers/CustomerHistory";
+
+// User Management
+import UsersList from "./pages/users/UsersList";
+import CreateUser from "./pages/users/CreateUser";
+
+// Commission Management
+import CommissionSettings from "./pages/commission/CommissionSettings";
+
+// Coupons Management
+import CouponsList from "./pages/coupons/CouponsList";
+import CreateCoupon from "./pages/coupons/CreateCoupon";
+
+// Wallet Management
+import WalletTransactions from "./pages/wallet/WalletTransactions";
+import WalletSettings from "./pages/wallet/WalletSettings";
+
+// Notifications
+import NotificationCenter from "./pages/notifications/NotificationCenter";
+import CreateNotification from "./pages/notifications/CreateNotification";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -62,6 +86,30 @@ const App = () => (
           <Route path="/bike/riders" element={<Layout><BikeRiders /></Layout>} />
           <Route path="/bike/riders/:id" element={<Layout><BikeRiderDetails /></Layout>} />
           <Route path="/bike/bookings" element={<Layout><BikeBookings /></Layout>} />
+          
+          {/* Customer Management Routes */}
+          <Route path="/customers" element={<Layout><CustomersList /></Layout>} />
+          <Route path="/customers/:id" element={<Layout><CustomerDetails /></Layout>} />
+          <Route path="/customers/:id/history" element={<Layout><CustomerHistory /></Layout>} />
+          
+          {/* User Management Routes */}
+          <Route path="/users" element={<Layout><UsersList /></Layout>} />
+          <Route path="/users/create" element={<Layout><CreateUser /></Layout>} />
+          
+          {/* Commission Management Routes */}
+          <Route path="/commission" element={<Layout><CommissionSettings /></Layout>} />
+          
+          {/* Coupons Management Routes */}
+          <Route path="/coupons" element={<Layout><CouponsList /></Layout>} />
+          <Route path="/coupons/create" element={<Layout><CreateCoupon /></Layout>} />
+          
+          {/* Wallet Management Routes */}
+          <Route path="/wallet/transactions" element={<Layout><WalletTransactions /></Layout>} />
+          <Route path="/wallet/settings" element={<Layout><WalletSettings /></Layout>} />
+          
+          {/* Notifications Routes */}
+          <Route path="/notifications" element={<Layout><NotificationCenter /></Layout>} />
+          <Route path="/notifications/create" element={<Layout><CreateNotification /></Layout>} />
           
           {/* Catch-all route */}
           <Route path="*" element={<Layout><NotFound /></Layout>} />
